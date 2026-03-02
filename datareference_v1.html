@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>DATA REFERENCE</title>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+
+    }
+
+    /* Main layout */
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 95vh;
+      width: 95vw;
+    }
+
+    .title {
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-bottom: 2px solid #ccc;
+      font-size: 24px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .content {
+      display: flex;
+      flex: 1;
+    }
+
+    .page-note {
+      padding: 8px 20px 26px 20px;
+      font-size: 12px;
+      font-family: Arial, sans-serif;
+      color: #333;
+      border-top: 1px solid #ccc;
+      background: #fafafa;
+    }
+
+    /* Fixed widths */
+    .left {
+      width: 100%;
+      border-right: 2px solid #ccc;
+    }
+
+    .right {
+      width: 40%;
+    }
+
+    /* Iframes fill their panels */
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      overflow: visible;
+    }
+
+    @media screen {
+      body {
+        overflow: hidden;
+      }
+    }
+
+    @media print {
+      @page {
+        size: landscape;
+        margin: 4mm;
+      }
+
+      html,
+      body {
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      .container {
+        height: auto !important;
+        width: calc(100% / 0.45) !important;
+        transform: scale(0.45);
+        transform-origin: top left;
+      }
+
+      .content {
+        display: block !important;
+      }
+
+      .left {
+        width: 100% !important;
+        border: none !important;
+      }
+
+      iframe {
+        overflow: hidden !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">ERV Pricing Tool v2 - Data Reference</div>
+    <div class="content">
+
+
+
+      <!-- RIGHT: MATRIX -->
+      <div class="left">
+        <iframe src="data_v1.html" scrolling="yes"></iframe>
+      </div>
+
+    </div>
+    <div class="page-note"><strong>Note:</strong> ALL VALUES ROUNDED TO TWO DECIMAL PLACES <br>*CONTROLS FLA ROUNDED TO ONE DECIMAL PLACE</div>
+  </div>
+  <script>
+
+    function sendInputsToMatrix() {
+
+      const dataFrame = document.querySelector('iframe[src="data_v1.html"]');
+
+      // Get matrix values from input iframe (temporarily skipped; unused here)
+
+      // Send to matrix iframe
+      dataFrame.contentWindow.setMatrixValue("VOLTAGE", "[USER INPUT]");
+      dataFrame.contentWindow.setMatrixValue("PHASE", "[USER INPUT]");
+      dataFrame.contentWindow.setMatrixValue("AMP_FACTOR", "SQRT(PHASE)");
+      dataFrame.contentWindow.setMatrixValue("PRE_HEAT", "[USER INPUT]");
+      dataFrame.contentWindow.setMatrixValue("POST_HEAT", "[USER INPUT]");
+      dataFrame.contentWindow.setMatrixValue("CONTROLS", "100");
+      dataFrame.contentWindow.setMatrixValue("FAN_FLA", "SEE FAN FLA TABLE (DEPENDS ON SERIES & VOLTAGE)");
+      dataFrame.contentWindow.setMatrixValue("TOTAL_FAN_FLA", "SEE FAN FLA TABLE (DEPENDS ON SERIES & VOLTAGE)");
+      dataFrame.contentWindow.setMatrixValue("CONTROLS_FLA", "ceil( (CONTROLS / VOLTAGE) / 0.1 ) X 0.1 *");
+      dataFrame.contentWindow.setMatrixValue("FANS_CONTROLS_MCA_CONTRIBUTION", "IF HEATERS: (1.25 X TOTAL FAN FLA) + (1.25 X CONTROLS FLA); ELSE: (TOTAL FAN FLA) + (1.25 X CONTROLS FLA)");
+      dataFrame.contentWindow.setMatrixValue("PRE_HEAT_FLA", "PRE-HEATER CAPACITY X 1000 / VOLTAGE / AMP FACTOR");
+      dataFrame.contentWindow.setMatrixValue("POST_HEAT_FLA", "POST-HEATER CAPACITY X 1000 / VOLTAGE / AMP FACTOR");
+      dataFrame.contentWindow.setMatrixValue("UNIT_FLA", "TOTAL FAN FLA + CONTROLS FLA + PRE-HEATER FLA + POST-HEATER FLA");
+      dataFrame.contentWindow.setMatrixValue("MIN_MAIN_DISCONNECT_SIZE", "1.16 X UNIT FLA");
+      dataFrame.contentWindow.setMatrixValue("UNIT_MCA", "(FAN CONTROLS MCA CONTRIBUTION) + (1.25 X PRE-HEATER FLA) + (1.25 X POST-HEATER FLA)");
+      dataFrame.contentWindow.setMatrixValue("UNIT_MOP_UNROUNDED", "(1.25 X FAN FLA) + TOTAL FAN FLA + CONTROLS FLA + PRE-HEATER FLA + POST-HEATER FLA");
+      dataFrame.contentWindow.setMatrixValue("UNIT_MOP_FUSE_SIZE_DOWN", "IF UNIT MOP UNROUNDED < 15: 15; ELSE: SEE FUSE TABLE (NEXT LOWER FUSE SIZE)");
+      dataFrame.contentWindow.setMatrixValue("UNIT_MCA_FUSE_SIZE_UP", "SEE FUSE TABLE (NEXT LARGER FUSE SIZE)");
+      dataFrame.contentWindow.setMatrixValue("UNIT_MOP", "IF (UNIT MOP FUSE SIZE DOWN) < (UNIT MCA): (UNIT MCA FUSE SIZE UP); ELSE: (UNIT MOP FUSE SIZE DOWN)");
+
+
+
+
+    }
+
+
+    const matrixFrame = document.querySelector('iframe[src="data_v1.html"]');
+    matrixFrame.addEventListener("load", sendInputsToMatrix);
+
+    function resizeMatrixIframeToContent() {
+      try {
+        const doc = matrixFrame.contentDocument || matrixFrame.contentWindow.document;
+        const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
+        const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
+        const bodyWidth = doc.body ? doc.body.scrollWidth : 0;
+        const docWidth = doc.documentElement ? doc.documentElement.scrollWidth : 0;
+
+        matrixFrame.style.height = Math.max(bodyHeight, docHeight, 200) + "px";
+        matrixFrame.style.width = Math.max(bodyWidth, docWidth, 200) + "px";
+        matrixFrame.setAttribute("scrolling", "no");
+      } catch (e) {
+        // Keep default dimensions if iframe content isn't accessible.
+      }
+    }
+
+    function fitPageToViewport() {
+      resizeMatrixIframeToContent();
+
+      const container = document.querySelector(".container");
+      container.style.height = "auto";
+      container.style.width = "auto";
+      container.style.transform = "none";
+
+      const widthScale = window.innerWidth / container.scrollWidth;
+      const heightScale = window.innerHeight / container.scrollHeight;
+      const scale = Math.min(widthScale, heightScale, 1);
+
+      container.style.transform = "scale(" + scale + ")";
+      container.style.transformOrigin = "top left";
+    }
+
+    const originalIframeState = new Map();
+
+    function expandIframesForPrint() {
+      const iframes = document.querySelectorAll("iframe");
+      iframes.forEach((frame) => {
+        if (!originalIframeState.has(frame)) {
+          originalIframeState.set(frame, {
+            height: frame.style.height,
+            scrolling: frame.getAttribute("scrolling")
+          });
+        }
+
+        frame.setAttribute("scrolling", "no");
+        try {
+          const doc = frame.contentDocument || frame.contentWindow.document;
+          const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
+          const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
+          frame.style.height = Math.max(bodyHeight, docHeight, 200) + "px";
+        } catch (e) {
+          // Keep default height if iframe content isn't accessible.
+        }
+      });
+    }
+
+    function restoreIframesAfterPrint() {
+      const iframes = document.querySelectorAll("iframe");
+      iframes.forEach((frame) => {
+        const original = originalIframeState.get(frame);
+        if (!original) {
+          return;
+        }
+        frame.style.height = original.height;
+        if (original.scrolling === null) {
+          frame.removeAttribute("scrolling");
+        } else {
+          frame.setAttribute("scrolling", original.scrolling);
+        }
+      });
+    }
+
+    window.addEventListener("beforeprint", expandIframesForPrint);
+    window.addEventListener("afterprint", restoreIframesAfterPrint);
+    window.addEventListener("resize", fitPageToViewport);
+
+    matrixFrame.addEventListener("load", function () {
+      setTimeout(fitPageToViewport, 50);
+    });
+
+    setTimeout(fitPageToViewport, 150);
+
+
+
+  </script>
+
+
+
+
+
+</body>
+
+</html>

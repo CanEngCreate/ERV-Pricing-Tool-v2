@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ERV Pricing Tool v2</title>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+
+    }
+
+    /* Main layout */
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 95vh;
+      width: 95vw;
+    }
+
+    .title {
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-bottom: 2px solid #ccc;
+      font-size: 24px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .content {
+      display: flex;
+      flex: 1;
+    }
+
+    /* Main columns */
+    .left {
+      flex: 0 0 auto;
+      border-right: 2px solid #ccc;
+      width: 400px;
+      display: flex;
+    }
+
+    #inputFrame {
+      max-width: 100%;
+    }
+
+    .right {
+      flex: 0 0 auto;
+      min-width: 0;
+      display: flex;
+      gap: 0;
+    }
+
+    .panel {
+      flex: 0 0 auto;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Iframes fill their panels */
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      overflow: visible;
+    }
+
+    @media screen {
+      body {
+        overflow: hidden;
+      }
+    }
+
+    @media print {
+      @page {
+        size: landscape;
+        margin: 4mm;
+      }
+
+      html,
+      body {
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      .container {
+        height: auto !important;
+        width: calc(100% / 0.45) !important;
+        transform: scale(0.45);
+        transform-origin: top left;
+      }
+
+      .content {
+        display: block !important;
+      }
+
+      .left,
+      .right {
+        width: 100% !important;
+        border: none !important;
+      }
+
+      .right {
+        display: block !important;
+      }
+
+      .panel {
+        width: 100% !important;
+        border: none !important;
+      }
+
+      iframe {
+        overflow: hidden !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">ERV Pricing Tool v2</div>
+    <div class="content">
+
+      <!-- LEFT: INPUT -->
+      <div class="left">
+        <iframe id="inputFrame" src="input_v3.html" scrolling="yes"></iframe>
+      </div>
+
+      <!-- RIGHT: MATRIX -->
+      <div class="right">
+        <div class="panel">
+          <iframe id="matrixFrame" src="matrix_v1.html" scrolling="yes"></iframe>
+        </div>
+        <div class="panel">
+          <iframe id="dataFrame" src="data_v1.html" scrolling="yes"></iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script>
+
+    function sendInputsToMatrix() {
+      const inputFrame = document.querySelector('iframe[src="input_v3.html"]');
+      const matrixFrame = document.getElementById("matrixFrame");
+      const dataFrame = document.getElementById("dataFrame");
+
+      // Get matrix values from input iframe 
+      const matrixValues = inputFrame.contentWindow.getMatrixValues();
+      // Send to matrix iframe
+      matrixFrame.contentWindow.setMatrixValue("1-SERIES", matrixValues.val1);
+      matrixFrame.contentWindow.setMatrixValue("2-CORES1", matrixValues.val2);
+      matrixFrame.contentWindow.setMatrixValue("3-CORES2", matrixValues.val3);
+      matrixFrame.contentWindow.setMatrixValue("4-LOCATION", matrixValues.val4);
+      matrixFrame.contentWindow.setMatrixValue("5-FANS", matrixValues.val5);
+      matrixFrame.contentWindow.setMatrixValue("6-HEIGHT", matrixValues.val6);
+      matrixFrame.contentWindow.setMatrixValue("7-INLET_WIDTH", matrixValues.val7);
+      matrixFrame.contentWindow.setMatrixValue("8-VOLTAGE", matrixValues.val8);
+      matrixFrame.contentWindow.setMatrixValue("9-FILTER_LOCATION", matrixValues.val9);
+      matrixFrame.contentWindow.setMatrixValue("10-DUCT_OA", matrixValues.val10);
+      matrixFrame.contentWindow.setMatrixValue("11-DUCT_SA", matrixValues.val11);
+      matrixFrame.contentWindow.setMatrixValue("12-DUCT_RA", matrixValues.val12);
+      matrixFrame.contentWindow.setMatrixValue("13-DUCT_EA", matrixValues.val13);
+      matrixFrame.contentWindow.setMatrixValue("14-ELECTRICAL_CONNECTION", matrixValues.val14);
+      matrixFrame.contentWindow.setMatrixValue("15-DAMPER_OA", matrixValues.val15);
+      matrixFrame.contentWindow.setMatrixValue("16-DAMPER_EA", matrixValues.val16);
+      matrixFrame.contentWindow.setMatrixValue("17-OPTION_DISCONNECT", matrixValues.val17);
+      matrixFrame.contentWindow.setMatrixValue("181-OPTION_FROST_PROTECTION_SF", matrixValues.val181);
+      matrixFrame.contentWindow.setMatrixValue("182-OPTION_FROST_PROTECTION_BP", matrixValues.val182);
+      matrixFrame.contentWindow.setMatrixValue("19-OPTION_TIMER", matrixValues.val19);
+      matrixFrame.contentWindow.setMatrixValue("20-OPTION_DIRTY_FILTER", matrixValues.val20);
+      matrixFrame.contentWindow.setMatrixValue("21-OPTION_MAGNEHELIC", matrixValues.val21);
+      matrixFrame.contentWindow.setMatrixValue("22-OPTION_BASERAIL", matrixValues.val22);
+      matrixFrame.contentWindow.setMatrixValue("23-OPTION_SPARE_FILTERS", matrixValues.val23);
+      matrixFrame.contentWindow.setMatrixValue("241-OPTION_MODULAR_SPLIT", matrixValues.val241);
+      matrixFrame.contentWindow.setMatrixValue("242-OPTION_ROOF_CURB", matrixValues.val242);
+      matrixFrame.contentWindow.setMatrixValue("243-OPTION_FILTERS", matrixValues.val243);
+      matrixFrame.contentWindow.setMatrixValue("244-OPTION_BYPASS_DAMPER", matrixValues.val244);
+      matrixFrame.contentWindow.setMatrixValue("245-OPTION_SPECIAL", matrixValues.val245);
+      matrixFrame.contentWindow.setMatrixValue("25-COILS_PREHEAT", matrixValues.val25);
+      matrixFrame.contentWindow.setMatrixValue("26-COILS_POSTHEAT", matrixValues.val26);
+      matrixFrame.contentWindow.setMatrixValue("27-COILS_OTHER", matrixValues.val27);
+      matrixFrame.contentWindow.setMatrixValue("281-CONTROLS", matrixValues.val281);
+      matrixFrame.contentWindow.setMatrixValue("282-POTENTIOMETER", matrixValues.val282);
+      matrixFrame.contentWindow.setMatrixValue("99-AURA_SCHEDULAR", matrixValues.val99);
+      matrixFrame.contentWindow.setMatrixValue("98-AURA_STANDARD_SPEED_CONTROL", matrixValues.val98);
+      matrixFrame.contentWindow.setMatrixValue("97-AURA_ADVANCED_SPEED_CONTROL", matrixValues.val97);
+      matrixFrame.contentWindow.setMatrixValue("96-SUPPLY_DUCT_DPT", matrixValues.val96);
+      matrixFrame.contentWindow.setMatrixValue("95-RETURN_DUCT_DPT", matrixValues.val95);
+      matrixFrame.contentWindow.setMatrixValue("94-MARKUP", matrixValues.val94);
+
+      const dataValues = inputFrame.contentWindow.getDataValues();
+      dataFrame.contentWindow.setMatrixValue("VOLTAGE", dataValues.voltageVal);
+      dataFrame.contentWindow.setMatrixValue("PHASE", dataValues.phaseVal);
+      dataFrame.contentWindow.setMatrixValue("AMP_FACTOR", dataValues.ampFactorVal);
+      dataFrame.contentWindow.setMatrixValue("PRE_HEAT", dataValues.preheaterVal);
+      dataFrame.contentWindow.setMatrixValue("POST_HEAT", dataValues.postheaterVal);
+      dataFrame.contentWindow.setMatrixValue("CONTROLS", dataValues.controlsVal);
+      dataFrame.contentWindow.setMatrixValue("FAN_FLA", dataValues.fanflaVal);
+      dataFrame.contentWindow.setMatrixValue("TOTAL_FAN_FLA", dataValues.totalfanflaVal);
+      dataFrame.contentWindow.setMatrixValue("CONTROLS_FLA", dataValues.controlsflaVal);
+       dataFrame.contentWindow.setMatrixValue("FANS_CONTROLS_MCA_CONTRIBUTION", dataValues.fanandcontrolsmcacontVal);
+       dataFrame.contentWindow.setMatrixValue("PRE_HEAT_FLA", dataValues.preheatflaVal);
+       dataFrame.contentWindow.setMatrixValue("POST_HEAT_FLA", dataValues.postheatflaVal);
+      dataFrame.contentWindow.setMatrixValue("UNIT_FLA", dataValues.unitflaVal);
+      dataFrame.contentWindow.setMatrixValue("MIN_MAIN_DISCONNECT_SIZE", dataValues.mindisconnectsizeVal);
+      dataFrame.contentWindow.setMatrixValue("UNIT_MCA", dataValues.unitmcaVal);
+      dataFrame.contentWindow.setMatrixValue("UNIT_MOP_UNROUNDED", dataValues.unitmopunroundedVal);
+      dataFrame.contentWindow.setMatrixValue("UNIT_MOP_FUSE_SIZE_DOWN", dataValues.unitmopfusesizedownVal);
+      dataFrame.contentWindow.setMatrixValue("UNIT_MCA_FUSE_SIZE_UP", dataValues.unitmcafusesizeupVal);
+      dataFrame.contentWindow.setMatrixValue("UNIT_MOP", dataValues.unitmopVal);
+
+    }
+
+    // Wait for both iframes to load, then start sending values
+    let inputFrame = document.querySelector('iframe[src="input_v3.html"]');
+    let matrixFrame = document.getElementById("matrixFrame");
+    let dataFrame = document.getElementById("dataFrame");
+
+    const framesReady = { input: false, matrix: false };
+
+    function tryStartInterval() {
+      if (framesReady.input && framesReady.matrix) {
+        setInterval(sendInputsToMatrix, 100); // simple live update
+      }
+    }
+
+    inputFrame.addEventListener('load', function () {
+      framesReady.input = true;
+      tryStartInterval();
+    });
+
+    matrixFrame.addEventListener('load', function () {
+      framesReady.matrix = true;
+      tryStartInterval();
+    });
+
+    dataFrame.addEventListener("load", function () {
+      setTimeout(fitPageToViewport, 50);
+    });
+
+    function resizeIframesToContent() {
+      const inputMaxWidth = 980;
+      const iframes = document.querySelectorAll("iframe");
+      iframes.forEach((frame) => {
+        try {
+          const doc = frame.contentDocument || frame.contentWindow.document;
+          const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
+          const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
+          const bodyWidth = doc.body ? doc.body.scrollWidth : 0;
+          const docWidth = doc.documentElement ? doc.documentElement.scrollWidth : 0;
+
+          frame.style.height = Math.max(bodyHeight, docHeight, 200) + "px";
+          if (frame.id === "inputFrame") {
+            const inputNaturalWidth = Math.max(bodyWidth, docWidth, 200);
+            frame.style.width = Math.min(inputNaturalWidth, inputMaxWidth) + "px";
+          } else {
+            frame.style.width = Math.max(bodyWidth, docWidth, 200) + "px";
+          }
+          frame.setAttribute("scrolling", "no");
+        } catch (e) {
+          // Keep default dimensions if iframe content isn't accessible.
+        }
+      });
+    }
+
+    function fitPageToViewport() {
+      resizeIframesToContent();
+
+      const container = document.querySelector(".container");
+      container.style.height = "auto";
+      container.style.width = "auto";
+      container.style.transform = "none";
+
+      const widthScale = window.innerWidth / container.scrollWidth;
+      const heightScale = window.innerHeight / container.scrollHeight;
+      const scale = Math.min(widthScale, heightScale, 1);
+
+      container.style.transform = "scale(" + scale + ")";
+      container.style.transformOrigin = "top left";
+    }
+
+    const originalIframeState = new Map();
+
+    function expandIframesForPrint() {
+      const iframes = document.querySelectorAll("iframe");
+      iframes.forEach((frame) => {
+        if (!originalIframeState.has(frame)) {
+          originalIframeState.set(frame, {
+            height: frame.style.height,
+            scrolling: frame.getAttribute("scrolling")
+          });
+        }
+
+        frame.setAttribute("scrolling", "no");
+        try {
+          const doc = frame.contentDocument || frame.contentWindow.document;
+          const bodyHeight = doc.body ? doc.body.scrollHeight : 0;
+          const docHeight = doc.documentElement ? doc.documentElement.scrollHeight : 0;
+          frame.style.height = Math.max(bodyHeight, docHeight, 200) + "px";
+        } catch (e) {
+          // Keep default height if iframe content isn't accessible.
+        }
+      });
+    }
+
+    function restoreIframesAfterPrint() {
+      const iframes = document.querySelectorAll("iframe");
+      iframes.forEach((frame) => {
+        const original = originalIframeState.get(frame);
+        if (!original) {
+          return;
+        }
+        frame.style.height = original.height;
+        if (original.scrolling === null) {
+          frame.removeAttribute("scrolling");
+        } else {
+          frame.setAttribute("scrolling", original.scrolling);
+        }
+      });
+      setTimeout(fitPageToViewport, 0);
+    }
+
+    window.addEventListener("beforeprint", expandIframesForPrint);
+    window.addEventListener("afterprint", restoreIframesAfterPrint);
+    window.addEventListener("resize", fitPageToViewport);
+    inputFrame.addEventListener("load", function () {
+      setTimeout(fitPageToViewport, 50);
+    });
+    matrixFrame.addEventListener("load", function () {
+      setTimeout(fitPageToViewport, 50);
+    });
+    setTimeout(fitPageToViewport, 150);
+
+  </script>
+
+
+
+
+
+</body>
+
+</html>
+

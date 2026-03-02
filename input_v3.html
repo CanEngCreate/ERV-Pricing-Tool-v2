@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Param Form</title>
+  <style>
+    * {
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+  </style>
+  <h3 style="text-align:center; font-family:Arial, sans-serif; margin-top:5px;">
+    Input
+  </h3>
+  <script src="heater-config.js"></script>
+  <script src="fan-fla.js"></script>
+  <script src="electrical-config.js"></script>
+</head>
+
+<body>
+
+  <!-- SERIES -->
+  <label>Series</label>
+  <select id="series">
+    <option value="123-XXX" data-cores="0">-- Select --</option>
+    <option value="123-M01" data-cores="1">M01</option>
+    <option value="123-M02" data-cores="2">M02</option>
+    <option value="123-M03" data-cores="3">M03</option>
+    <option value="123-M04" data-cores="4">M04</option>
+    <option value="123-M05" data-cores="5">M05</option>
+    <option value="123-M06" data-cores="6">M06</option>
+    <option value="123-M07" data-cores="7">M07</option>
+    <option value="123-M08" data-cores="8">M08</option>
+    <option value="123-M09" data-cores="9">M09</option>
+    <option value="123-M10" data-cores="10">M10</option>
+  </select>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="seriescode">123-XXX</label>
+  <br><br>
+
+  <!-- LOCATION -->
+  <label>Location</label>
+  <select id="ervlocation">
+    <option value="4-X">-- Select --</option>
+    <option value="4-i">Indoor</option>
+    <option value="4-R">Rooftop</option>
+  </select>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="ervlocationcode">4-X</label>
+  <br><br>
+
+  <!-- BASERAIL -->
+  <label style="color: gray" id="baseraillabel"> <input type="checkbox" id="baserail"> Baserail </label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="baserailcode">22-X</label>
+  <br><br>
+
+  <!-- MODULES -->
+  <label>Modules</label>
+  <input type="number" id="modules" name="modules" value="1" min="1" max="5">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="modulescode">241-X:1</label>
+  <br><br>
+
+  <!-- OA DAMPER -->
+  <label>OA Damper</label>
+  <select id="oadamper">
+    <option value="15-N">None</option>
+    <option value="15-A">Insulated</option>
+    <option value="15-F">Non-Insulated</option>
+  </select>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="oadampercode">15-N</label>
+  <br><br>
+
+  <!-- EA DAMPER -->
+  <label>EA Damper</label>
+  <select id="eadamper">
+    <option value="16-N">None</option>
+    <option value="16-A">Insulated</option>
+    <option value="16-F">Non-Insulated</option>
+    <option value="16-C">Backdraft</option>
+  </select>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="eadampercode">16-N</label>
+  <br><br>
+
+  <!-- BYPASS DAMPER -->
+  <label> <input type="checkbox" id="bypassdamper"> BYPASS Damper </label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="bypassdampercode">244-X</label>
+  <br><br>
+
+  <!-- MAGNEHELIC GAGES -->
+  <label> <input type="checkbox" id="magnehelic"> Magnehelic Gages </label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="magneheliccode">21-X</label>
+  <br><br>
+
+  <!-- FILTERS -->
+  <label>Filters</label>
+  <select id="filters">
+    <option value="243-X">-- Select --</option>
+    <option value="243-X">OA MERV8 / EA MERV8</option>
+    <option value="243-M">OA MERV13 / EA MERV13</option>
+    <option value="243-P">OA MERV13 / EA MERV8</option>
+  </select>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="filterscode">243-X</label>
+  <br><br>
+
+  <!-- VOLTAGE -->
+  <label>Voltage</label>
+  <select id="voltage">
+    <option value="8-X" data-voltage="0" data-phase="0">-- Select --</option>
+    <option value="8-B" data-voltage="208" data-phase="1">208/1</option>
+    <option value="8-C" data-voltage="208" data-phase="3">208/3</option>
+    <option value="8-E" data-voltage="460" data-phase="3">460/3</option>
+    <option value="8-F" data-voltage="575" data-phase="3">575/3</option>
+  </select>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="voltagecode">8-X</label>
+  <br><br>
+
+  <!-- PREHEATER -->
+  <label>Pre-heater</label>
+  <select id="preheater">
+    <option value="25-N">None</option>
+  </select>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="preheatercode">25-N</label>
+  <br><br>
+
+  <!-- POSTHEATER -->
+  <label>Post-heater</label>
+  <select id="postheater">
+    <option value="26-N">None</option>
+  </select>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="postheatercode">26-N</label>
+  <br><br>
+
+  <!-- MAINDISCONNECT -->
+  <label>Main Disconnect</label>
+  <select id="maindisconnect">
+    <option value="17-N">None </option>
+    <option value="17-A">Non-Fused</option>
+    <option value="17-B">Fused</option>
+  </select>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="maindisconnectcode">17-N</label>
+  <br><br>
+  </select>
+
+  <!-- CONTROLS -->
+  <label>Controls</label>
+  <select id="controls">
+    <option value="281-B">Basic - Terminal Strip</option>
+    <option value="281-E">AURA Standard</option>
+    <option value="281-F">AURA Advanced</option>
+  </select>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="controlscode">281-B</label>
+  <br><br>
+  </select>
+
+  <!-- OCCUPANCY TIMER -->
+  <label style="color: black" id="occupancytimerlabel"> <input type="checkbox" id="occupancytimer"> Occupancy Timer
+  </label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="occupancytimercode">19-X</label>
+  <br><br>
+
+  <!-- AURA SCHEDULAR -->
+  <label style="color: gray" id="auraschedularlabel"> <input type="checkbox" disabled id="auraschedular"> AURA Schedular
+  </label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="auraschedularcode">99-N</label>
+  <br><br>
+
+  <!-- POTENTIOMETER -->
+  <label style="color: black" id="potentiometerlabel"> <input type="checkbox" id="potentiometer"> Potentiometer </label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="potentiometercode">282-N</label>
+  <br><br>
+
+  <!-- AURA STANDARD SPEED CONTROL -->
+  <label style="color: gray" id="aurastandardspeedcontrollabel"> <input type="checkbox" disabled
+      id="aurastandardspeedcontrol">
+    AURA Standard Speed Control </label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="aurastandardspeedcontrolcode">98-N</label>
+  <br><br>
+
+  <!-- AURA ADVANCED SPEED CONTROL -->
+  <label style="color: gray" id="auraadvancedspeedcontrollabel"> <input type="checkbox" disabled
+      id="auraadvancedspeedcontrol">
+    AURA Advanced Speed Control </label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="auraadvancedspeedcontrolcode">97-N</label>
+  <br><br>
+
+  <!-- FILTER SWITCHES -->
+  <label style="color: black" id="filterswitcheslabel"> <input type="checkbox" id="filterswitches"> Filter Switches
+  </label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="filterswitchescode">20-X</label>
+  <br><br>
+
+  <!-- DEFROST SWITCHES SUPPLY FAN -->
+  <label style="color: black" id="defrostswitchessupplyfanlabel"> <input type="checkbox" id="defrostswitchessupplyfan">
+    Defrost Switches -
+    Stop Supply Fan
+  </label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="defrostswitchessupplyfancode">181-X</label>
+  <br><br>
+
+  <!-- DEFROST BYPASS -->
+  <label>Defrost Bypass </label>
+  <select id="defrostbypass">
+    <option value="182-X">None </option>
+  </select>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="defrostbypasscode">182-X</label>
+  <br><br>
+  </select>
+
+  <!-- SUPPLY DUCT DPT -->
+  <label style="color: gray" id="supplyductdptlabel"> <input type="checkbox" disabled id="supplyductdpt"> Supply Duct
+    DPT
+  </label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="supplyductdptcode">96-N</label>
+  <br><br>
+
+  <!-- RETURN DUCT DPT -->
+  <label style="color: gray" id="returnductdptlabel"> <input type="checkbox" disabled id="returnductdpt"> Return Duct
+    DPT
+  </label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="returnductdptcode">95-N</label>
+  <br><br>
+
+  <!-- MARKUP -->
+  <label for="markup">Markup</label>
+  <input type="number" id="markup" name="markup" value="15" step="1" min="0" max="100">
+  <span>%</span>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+    id="markupcode">94-M:15</label>
+  <br><br>
+
+  <label id="testcode">TEST</label>
+  <br><br>
+
+
+
+  <script>
+    const series = document.getElementById("series");
+    const ervlocation = document.getElementById("ervlocation");
+    const baserail = document.getElementById("baserail");
+    const modulesInput = document.getElementById("modules");
+    const oadamper = document.getElementById("oadamper");
+    const eadamper = document.getElementById("eadamper");
+    const bypassdamper = document.getElementById("bypassdamper");
+    const magnehelic = document.getElementById("magnehelic");
+    const filters = document.getElementById("filters");
+    const voltage = document.getElementById("voltage");
+    const preheater = document.getElementById("preheater");
+    const postheater = document.getElementById("postheater");
+    const maindisconnect = document.getElementById("maindisconnect");
+    const controls = document.getElementById("controls");
+    const occupancytimer = document.getElementById("occupancytimer");
+    const auraschedular = document.getElementById("auraschedular");
+    const potentiometer = document.getElementById("potentiometer");
+    const aurastandardspeedcontrol = document.getElementById("aurastandardspeedcontrol");
+    const auraadvancedspeedcontrol = document.getElementById("auraadvancedspeedcontrol");
+    const filterswitches = document.getElementById("filterswitches");
+    const defrostswitchessupplyfan = document.getElementById("defrostswitchessupplyfan");
+    const defrostbypass = document.getElementById("defrostbypass");
+    const supplyductdpt = document.getElementById("supplyductdpt");
+    const returnductdpt = document.getElementById("returnductdpt");
+    const markup = document.getElementById("markup");
+
+    let mval1 = "X"
+    let mval2 = "X"
+    let mval3 = "X"
+    let mval4 = "X"
+    let mval5 = "F"
+    let mval6 = "S"
+    let mval7 = "S"
+    let mval8 = "X"
+    let mval9 = "X"
+    let mval10 = "X"
+    let mval11 = "X"
+    let mval12 = "X"
+    let mval13 = "X"
+    let mval14 = "1"
+    let mval15 = "X"
+    let mval16 = "X"
+    let mval17 = "X"
+    let mval181 = "X"
+    let mval182 = "X"
+    let mval19 = "X"
+    let mval20 = "X"
+    let mval21 = "X"
+    let mval22 = "X"
+    let mval23 = "X"
+    let mval241 = "X"
+    let mval242 = "X"
+    let mval243 = "X"
+    let mval244 = "X"
+    let mval245 = "X"
+    let mval25 = "X"
+    let mval26 = "X"
+    let mval27 = "X"
+    let mval281 = "X"
+    let mval282 = "X"
+    let mval99 = "X"
+    let mval98 = "X"
+    let mval97 = "X"
+    let mval96 = "X"
+    let mval95 = "X"
+    let mval94 = "X"
+
+    window.getMatrixValues = function () {
+
+      return {
+
+        val1: mval1,
+        val2: mval2,
+        val3: mval3,
+        val4: mval4,
+        val5: mval5,
+        val6: mval6,
+        val7: mval7,
+        val8: mval8,
+        val9: mval9,
+        val10: mval10,
+        val11: mval11,
+        val12: mval12,
+        val13: mval13,
+        val14: mval14,
+        val15: mval15,
+        val16: mval16,
+        val17: mval17,
+        val181: mval181,
+        val182: mval182,
+        val19: mval19,
+        val20: mval20,
+        val21: mval21,
+        val22: mval22,
+        val23: mval23,
+        val241: mval241,
+        val242: mval242,
+        val243: mval243,
+        val244: mval244,
+        val245: mval245,
+        val25: mval25,
+        val26: mval26,
+        val27: mval27,
+        val281: mval281,
+        val282: mval282,
+        val99: mval99,
+        val98: mval98,
+        val97: mval97,
+        val96: mval96,
+        val95: mval95,
+        val94: mval94,
+
+      };
+    };
+
+    let dvoltageVal = 0
+    let dphaseVal = 0
+    let dampfactorVal = 0
+    let dpreheaterVal = 0
+    let dpostheaterVal = 0
+    let dcontrolsVal = 100
+    let dfanflaVal = 0
+    let dtotalfanflaVal = 0
+    let dcontrolsflaVal = 0
+    let dfanandcontrolsmcacontVal = 0
+    let dpreheatflaVal = 0
+    let dpostheatflaVal = 0
+    let dunitflaVal = 0
+    let dmindisconnectsizeVal = 0
+    let dunitmcaVal = 0
+    let dunitmopunroundedVal = 0
+    let dunitmopfusesizedownVal = 0
+    let dunitmcafusesizeupVal = 0
+    let dunitmopVal = 0
+
+    window.getDataValues = function () {
+
+      return {
+
+        voltageVal: dvoltageVal,
+        phaseVal: dphaseVal,
+        ampFactorVal: dampfactorVal,
+        preheaterVal: dpreheaterVal,
+        postheaterVal: dpostheaterVal,
+        controlsVal: dcontrolsVal,
+        fanflaVal: dfanflaVal,
+        totalfanflaVal: dtotalfanflaVal,
+        controlsflaVal: dcontrolsflaVal,
+        fanandcontrolsmcacontVal: dfanandcontrolsmcacontVal,
+        preheatflaVal: dpreheatflaVal,
+        postheatflaVal: dpostheatflaVal,
+        unitflaVal: dunitflaVal,
+        mindisconnectsizeVal: dmindisconnectsizeVal,
+        unitmcaVal: dunitmcaVal,
+        unitmopunroundedVal: dunitmopunroundedVal,
+        unitmopfusesizedownVal: dunitmopfusesizedownVal,
+        unitmcafusesizeupVal: dunitmcafusesizeupVal,
+        unitmopVal: dunitmopVal,
+
+      };
+    };
+
+    function updateseries() {
+      document.getElementById("seriescode").textContent = series.value;
+      const seriesmodel = series.value.split("-")[1];
+      mval1 = seriesmodel.charAt(0);
+      mval2 = seriesmodel.charAt(1);
+      mval3 = seriesmodel.charAt(2);
+      //document.getElementById("testcode").textContent = matrixval1 + matrixval2 + matrixval3;
+      populatepreheater(series.value);
+      populatepostheater(series.value);
+    }
+
+    function updatelocation() {
+      document.getElementById("ervlocationcode").textContent = ervlocation.value;
+      updatebaserail();
+      mval4 = ervlocation.value.split("-")[1];
+    }
+
+    function updatebaserail() {
+      let baseraillabelcolor = "black";
+      let baserailcode = "22-X";
+      const ervlocationVal = ervlocation.value;
+      if (ervlocationVal == "4-X") {
+        baseraillabelcolor = "gray";
+        baserail.checked = false;
+        baserail.disabled = true;
+        baserailcode = "22-X";
+      }
+      if (ervlocationVal == "4-i") {
+        baseraillabelcolor = "black";
+        baserail.disabled = false; // optional
+        baserailcode = baserail.checked ? "22-H" : "22-X";
+      }
+      if (ervlocationVal == "4-R") {
+        baseraillabelcolor = "gray";
+        baserail.checked = true;
+        baserail.disabled = true; // locked-true
+        baserailcode = "22-X";
+      }
+      document.getElementById("baseraillabel").style.color = baseraillabelcolor;
+      document.getElementById("baserailcode").textContent = baserailcode;
+      mval22 = baserailcode.split("-")[1];
+    }
+
+    function updatemodules() {
+      modulesVal = modulesInput.value || 1;
+      let modulescode = "";
+      if (modulesVal > 1) {
+        modulescode = "241-K:" + modulesVal;
+      }
+      if (modulesVal == 1) {
+        modulescode = "241-X";
+      }
+      document.getElementById("modulescode").textContent = modulescode;
+      mval241 = modulescode.split("-")[1];
+    }
+
+    function updateoadamper() {
+      document.getElementById("oadampercode").textContent = oadamper.value;
+      mval15 = oadamper.value.split("-")[1];
+    }
+
+    function updateeadamper() {
+      document.getElementById("eadampercode").textContent = eadamper.value;
+      mval16 = eadamper.value.split("-")[1];
+    }
+
+    function updatebypassdamper() {
+      const bypassdampercode = bypassdamper.checked ? "244-R" : "244-X";
+      document.getElementById("bypassdampercode").textContent = bypassdampercode;
+      populatedefrostbypass();
+      mval244 = bypassdampercode.split("-")[1];
+    }
+
+    function updatemagnehelic() {
+      const magneheliccode = magnehelic.checked ? "21-G" : "21-X";
+      document.getElementById("magneheliccode").textContent = magneheliccode;
+      mval21 = magneheliccode.split("-")[1];
+    }
+
+    function updatefilters() {
+      document.getElementById("filterscode").textContent = filters.value;
+      mval243 = filters.value.split("-")[1];
+    }
+
+    function updatevoltage() {
+      document.getElementById("voltagecode").textContent = voltage.value;
+      mval8 = voltage.value.split("-")[1];
+    }
+
+
+    function populatepreheater(series) {
+      const preheater = document.getElementById("preheater");
+
+      const previousValue = preheater.value; // save selection
+
+      // Clear dropdown
+      preheater.innerHTML = "";
+
+      // Add options for selected series
+      preheaters[series].forEach(item => {
+        const opt = document.createElement("option");
+        opt.value = item.value;
+        opt.text = item.text;
+        opt.setAttribute("datacapacity", item.datacapacity); // store capacity as data attribute
+        preheater.add(opt);
+      });
+
+      // ✅ Restore previous value if it still exists
+      const valueStillExists = preheaters[series].some(
+        item => item.value === previousValue
+      );
+
+      if (valueStillExists) {
+        preheater.value = previousValue;
+      } else {
+        preheater.selectedIndex = 0; // fallback to first option
+      }
+    }
+
+    function updatepreheater() {
+      document.getElementById("preheatercode").textContent = preheater.value;
+      mval25 = preheater.value.split("-")[1];
+
+    }
+
+    function populatepostheater(series) {
+      const postheater = document.getElementById("postheater");
+
+      const previousValue = postheater.value; // save selection
+
+      // Clear dropdown
+      postheater.innerHTML = "";
+
+      // Add options for selected series
+      postheaters[series].forEach(item => {
+        const opt = document.createElement("option");
+        opt.value = item.value;
+        opt.text = item.text;
+        opt.setAttribute("datacapacity", item.datacapacity); // store capacity as data attribute
+        postheater.add(opt);
+      });
+
+      // ✅ Restore previous value if it still exists
+      const valueStillExists = postheaters[series].some(
+        item => item.value === previousValue
+      );
+
+      if (valueStillExists) {
+        postheater.value = previousValue;
+      } else {
+        postheater.selectedIndex = 0; // fallback to first option
+      }
+    }
+
+
+    function updatepostheater() {
+      document.getElementById("postheatercode").textContent = postheater.value;
+      mval26 = postheater.value.split("-")[1];
+
+    }
+
+    function updatemaindisconnect() {
+      document.getElementById("maindisconnectcode").textContent = maindisconnect.value;
+      mval17 = maindisconnect.value.split("-")[1];
+    }
+
+    function updatecontrols() {
+      document.getElementById("controlscode").textContent = controls.value;
+      updateoccupancytimer();
+      updateauraschedular();
+      updatepotentiometer();
+      updateaurastandardspeedcontrol();
+      updateauraadvancedspeedcontrol();
+      updatefilterswitches();
+      // updatedefrostswitchessupplyfan();
+      populatedefrostbypass();
+      updatesupplyductdpt();
+      updatereturnductdpt();
+      mval281 = controls.value.split("-")[1];
+    }
+
+    function updateoccupancytimer() {
+      let occupancytimercolor = "black";
+      const controlsval = controls.value;
+      if (controlsval == "281-B") {
+        occupancytimer.disabled = false;
+        occupancytimercolor = "black";
+      }
+      if (controlsval == "281-E") {
+        occupancytimer.disabled = true; // optional
+        occupancytimer.checked = false;
+        occupancytimercolor = "gray";
+      }
+      if (controlsval == "281-F") {
+        occupancytimer.disabled = true; // optional
+        occupancytimer.checked = false;
+        occupancytimercolor = "gray";
+      }
+      document.getElementById("occupancytimerlabel").style.color = occupancytimercolor;
+      let occupancytimercode = occupancytimer.checked ? "19-E" : "19-X";
+      document.getElementById("occupancytimercode").textContent = occupancytimercode;
+      mval19 = occupancytimercode.split("-")[1];
+    }
+
+    function updateauraschedular() {
+      const controlsval = controls.value;
+      if (controlsval == "281-B") {
+        auraschedular.checked = false;
+      }
+      if (controlsval == "281-E") {
+        auraschedular.checked = true;
+      }
+      if (controlsval == "281-F") {
+        auraschedular.checked = true;
+      }
+      let auraschedularcode = auraschedular.checked ? "99-Y" : "99-N";
+      document.getElementById("auraschedularcode").textContent = auraschedularcode;
+      mval99 = auraschedularcode.split("-")[1];
+    }
+
+    function updatepotentiometer() {
+      let potentiometercolor = "black";
+      const controlsval = controls.value;
+      if (controlsval == "281-B") {
+        potentiometer.disabled = false;
+        potentiometercolor = "black";
+      }
+      if (controlsval == "281-E") {
+        potentiometer.disabled = true; // optional
+        potentiometer.checked = false;
+        potentiometercolor = "gray";
+      }
+      if (controlsval == "281-F") {
+        potentiometer.disabled = true; // optional
+        potentiometer.checked = false;
+        potentiometercolor = "gray";
+      }
+      document.getElementById("potentiometerlabel").style.color = potentiometercolor;
+      let potentiometercode = potentiometer.checked ? "282-C" : "282-X";
+      document.getElementById("potentiometercode").textContent = potentiometercode;
+      mval282 = potentiometercode.split("-")[1];
+    }
+
+    function updateaurastandardspeedcontrol() {
+      const controlsval = controls.value;
+      if (controlsval == "281-B") {
+        aurastandardspeedcontrol.checked = false;
+      }
+      if (controlsval == "281-E") {
+        aurastandardspeedcontrol.checked = true;
+      }
+      if (controlsval == "281-F") {
+        aurastandardspeedcontrol.checked = true;
+      }
+      let aurastandardspeedcontrolcode = aurastandardspeedcontrol.checked ? "98-Y" : "98-N";
+      document.getElementById("aurastandardspeedcontrolcode").textContent = aurastandardspeedcontrolcode;
+      mval98 = aurastandardspeedcontrolcode.split("-")[1];
+    }
+
+    function updateauraadvancedspeedcontrol() {
+      const controlsval = controls.value;
+      if (controlsval == "281-B") {
+        auraadvancedspeedcontrol.checked = false;
+      }
+      if (controlsval == "281-E") {
+        auraadvancedspeedcontrol.checked = false;
+      }
+      if (controlsval == "281-F") {
+        auraadvancedspeedcontrol.checked = true;
+      }
+
+      let auraadvancedspeedcontrolcode = auraadvancedspeedcontrol.checked ? "97-Y" : "97-N";
+      document.getElementById("auraadvancedspeedcontrolcode").textContent = auraadvancedspeedcontrolcode;
+      mval97 = auraadvancedspeedcontrolcode.split("-")[1];
+    }
+
+    function updatefilterswitches() {
+      let filterswitchescolor = "black";
+      const controlsval = controls.value;
+      if (controlsval == "281-B") {
+        filterswitches.disabled = false;
+        filterswitchescolor = "black";
+      }
+      if (controlsval == "281-E") {
+        filterswitches.disabled = true; // optional
+        filterswitches.checked = true;
+        filterswitchescolor = "gray";
+      }
+      if (controlsval == "281-F") {
+        filterswitches.disabled = true; // optional
+        filterswitches.checked = true;
+        filterswitchescolor = "gray";
+      }
+      document.getElementById("filterswitcheslabel").style.color = filterswitchescolor;
+
+      const filterswitchescode = filterswitches.checked ? "20-F" : "20-X";
+      document.getElementById("filterswitchescode").textContent = filterswitchescode;
+      mval20 = filterswitchescode.split("-")[1];
+    }
+
+    function updatedefrostswitchessupplyfan() {
+      let defrostswitchessupplyfancode = defrostswitchessupplyfan.checked ? "181-C" : "181-X";
+      document.getElementById("defrostswitchessupplyfancode").textContent = defrostswitchessupplyfancode;
+      mval181 = defrostswitchessupplyfancode.split("-")[1];
+    }
+
+    function populatedefrostbypass() {
+      const defrostbypassSelect = document.getElementById("defrostbypass");
+      const previousValue = defrostbypassSelect.value;
+
+      const controlsVal = controls.value;
+      const hasBypass = bypassdamper.checked;
+
+      // Clear dropdown
+      defrostbypassSelect.innerHTML = "";
+
+      let opts = [];
+
+      // RULES
+      if (!hasBypass || controlsVal === "281-B") {
+        // Only None allowed
+        opts = [{ value: "182-X", text: "None" }];
+      } else {
+        // Bypass exists
+        opts = [{ value: "182-X", text: "None" }];
+
+        if (controlsVal === "281-E" || controlsVal === "281-F") {
+          opts.push({ value: "182-D:O", text: "On/Off" });
+        }
+
+        if (controlsVal === "281-F") {
+          opts.push({ value: "182-D:M", text: "Modulating" });
+        }
+      }
+
+      // Add options
+      opts.forEach(item => {
+        const opt = document.createElement("option");
+        opt.value = item.value;
+        opt.text = item.text;
+        defrostbypassSelect.add(opt);
+      });
+
+      // ✅ Restore previous value if still valid
+      const valueStillExists = opts.some(o => o.value === previousValue);
+
+      if (valueStillExists) {
+        defrostbypassSelect.value = previousValue;
+      } else {
+        defrostbypassSelect.value = "182-X"; // default to None
+      }
+
+      updatedefrostbypass();
+    }
+
+
+
+
+
+    function updatedefrostbypass() {
+      document.getElementById("defrostbypasscode").textContent = defrostbypass.value;
+      mval182 = defrostbypass.value.split("-")[1];
+    }
+
+    function updatesupplyductdpt() {
+      let supplyductdptcolor = "gray";
+      const controlsval = controls.value;
+      if (controlsval == "281-B") {
+        supplyductdpt.disabled = true;
+        supplyductdpt.checked = false;
+        supplyductdptcolor = "gray";
+      }
+      if (controlsval == "281-E") {
+        supplyductdpt.disabled = true;
+        supplyductdpt.checked = false;
+        supplyductdptcolor = "gray";
+      }
+      if (controlsval == "281-F") {
+        supplyductdpt.disabled = false;
+        supplyductdptcolor = "black";
+      }
+      document.getElementById("supplyductdptlabel").style.color = supplyductdptcolor;
+      supplyductdptcode = supplyductdpt.checked ? "96-Y" : "96-N";
+      document.getElementById("supplyductdptcode").textContent = supplyductdptcode;
+      mval96 = supplyductdptcode.split("-")[1];
+    }
+
+    function updatereturnductdpt() {
+      let returnductdptcolor = "gray";
+      const controlsval = controls.value;
+      if (controlsval == "281-B") {
+        returnductdpt.disabled = true;
+        returnductdpt.checked = false;
+        returnductdptcolor = "gray";
+      }
+      if (controlsval == "281-E") {
+        returnductdpt.disabled = true;
+        returnductdpt.checked = false;
+        returnductdptcolor = "gray";
+      }
+      if (controlsval == "281-F") {
+        returnductdpt.disabled = false;
+        returnductdptcolor = "black";
+      }
+      document.getElementById("returnductdptlabel").style.color = returnductdptcolor;
+      returnductdptcode = returnductdpt.checked ? "95-Y" : "95-N";
+      document.getElementById("returnductdptcode").textContent = returnductdptcode;
+      mval95 = returnductdptcode.split("-")[1];
+    }
+
+    function updatemarkup() {
+      const markupval = markup.value || 0;
+      if (markupval > 0) {
+        markupcode = "94-M:" + markupval;
+      }
+      if (markupval == 0) {
+        markupcode = "94-N";
+      }
+      document.getElementById("markupcode").textContent = markupcode;
+      mval94 = markupcode.split("-")[1];
+    }
+
+    function outputdata() {
+      dvoltageVal = voltage.options[voltage.selectedIndex].getAttribute("data-voltage");
+      dphaseVal = voltage.options[voltage.selectedIndex].getAttribute("data-phase");
+      dampfactorVal = Math.sqrt(dphaseVal).toFixed(2); // example amp factor calculation based on phase 
+      dpreheaterVal = preheater.options[preheater.selectedIndex].getAttribute("datacapacity");
+      dpostheaterVal = postheater.options[postheater.selectedIndex].getAttribute("datacapacity");
+      if (series.value === "123-XXX" || voltage.value === "8-X") {
+        dfanflaVal = "";
+        dtotalfanflaVal = "";
+        return;
+      }
+      dfanflaVal = fanflas[series.value][voltage.value].FLA;
+      dtotalfanflaVal = fanflas[series.value][voltage.value].TOTALFLA;
+      dcontrolsflaVal = (Math.ceil((dcontrolsVal / dvoltageVal) / 0.1) * 0.1).toFixed(1);
+      if (preheater.value !== "25-N" || postheater.value !== "26-N") {
+        dfanandcontrolsmcacontVal = (1.25 * dtotalfanflaVal + 1.25 * dcontrolsflaVal).toFixed(2);
+      }
+      if (preheater.value === "25-N" && postheater.value === "26-N") {
+        dfanandcontrolsmcacontVal = (dtotalfanflaVal + 0.25 * dfanflaVal).toFixed(2);
+      }
+      dpreheatflaVal = (dpreheaterVal * 1000 / dvoltageVal / dampfactorVal).toFixed(2);
+      dpostheatflaVal = (dpostheaterVal * 1000 / dvoltageVal / dampfactorVal).toFixed(2);
+      dunitflaVal = (parseFloat(dtotalfanflaVal) + parseFloat(dcontrolsflaVal) + parseFloat(dpreheatflaVal) + parseFloat(dpostheatflaVal)).toFixed(2);
+      dmindisconnectsizeVal = (1.16 * dunitflaVal).toFixed(2);
+      dunitmcaVal = (parseFloat(dfanandcontrolsmcacontVal) + 1.25 * parseFloat(dpreheatflaVal) + 1.25 * parseFloat(dpostheatflaVal)).toFixed(2);
+      dunitmopunroundedVal = (1.25 * dfanflaVal + parseFloat(dtotalfanflaVal) + parseFloat(dcontrolsflaVal) + parseFloat(dpreheatflaVal) + parseFloat(dpostheatflaVal)).toFixed(2);
+      dunitmopfusesizedownVal = Math.max(xlookupMatchMinus1(dunitmopunroundedVal, standardfusesizes, standardfusesizes), 15);
+      if (parseFloat(dunitmopunroundedVal) < 15) {
+        dunitmopfusesizedownVal = 15;
+      }
+      dunitmcafusesizeupVal = xlookupMatch1(dunitmcaVal, standardfusesizes, standardfusesizes);
+      if (dunitmopfusesizedownVal < dunitmcaVal) {
+        dunitmopVal = dunitmcafusesizeupVal;
+      } else {
+        dunitmopVal = dunitmopfusesizedownVal;
+      }
+    }
+
+    function xlookupMatchMinus1(lookupValue, lookupArray, returnArray) {//exact match or next smaller
+      let result = null;
+      for (let i = 0; i < lookupArray.length; i++) {
+        if (lookupArray[i] === lookupValue) {
+          return returnArray[i]; // exact match
+        }
+        if (lookupArray[i] > lookupValue) {
+          return result; // previous (next smaller)
+        }
+        result = returnArray[i];
+      }
+      return result; // last value if lookupValue is bigger than all
+    }
+
+    function xlookupMatch1(lookupValue, lookupArray, returnArray) {//exact match or next larger
+  for (let i = 0; i < lookupArray.length; i++) {
+    
+    if (lookupArray[i] === lookupValue) {
+      return returnArray[i]; // exact match
+    }
+
+    if (lookupArray[i] > lookupValue) {
+      return returnArray[i]; // next larger
+    }
+  }
+
+  return null; // nothing larger found
+}
+    // events
+    function bindWithOutput(element, eventName, handler) {
+      element.addEventListener(eventName, function () {
+        handler();
+        outputdata();
+      });
+    }
+
+    bindWithOutput(series, "change", updateseries);
+    bindWithOutput(ervlocation, "change", updatelocation);
+    bindWithOutput(baserail, "change", updatebaserail);
+    bindWithOutput(modulesInput, "input", updatemodules);
+    bindWithOutput(oadamper, "change", updateoadamper);
+    bindWithOutput(eadamper, "change", updateeadamper);
+    bindWithOutput(bypassdamper, "change", updatebypassdamper);
+    bindWithOutput(magnehelic, "change", updatemagnehelic);
+    bindWithOutput(filters, "change", updatefilters);
+    bindWithOutput(voltage, "change", updatevoltage);
+    bindWithOutput(preheater, "change", updatepreheater);
+    bindWithOutput(postheater, "change", updatepostheater);
+    bindWithOutput(maindisconnect, "change", updatemaindisconnect);
+    bindWithOutput(controls, "change", updatecontrols);
+    bindWithOutput(occupancytimer, "change", updateoccupancytimer);
+    bindWithOutput(potentiometer, "change", updatepotentiometer);
+    bindWithOutput(auraadvancedspeedcontrol, "change", updateauraadvancedspeedcontrol);
+    bindWithOutput(aurastandardspeedcontrol, "change", updateaurastandardspeedcontrol);
+    bindWithOutput(filterswitches, "change", updatefilterswitches);
+    bindWithOutput(defrostswitchessupplyfan, "change", updatedefrostswitchessupplyfan);
+    bindWithOutput(defrostbypass, "change", updatedefrostbypass);
+    bindWithOutput(supplyductdpt, "change", updatesupplyductdpt);
+    bindWithOutput(returnductdpt, "change", updatereturnductdpt);
+    bindWithOutput(markup, "input", updatemarkup);
+
+
+
+    // init
+    //updateseries();
+    outputdata();
+
+    // updateoptioncodes();
+  </script>
+</body>
+
+</html>
