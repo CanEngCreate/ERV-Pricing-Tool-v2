@@ -128,16 +128,16 @@
 
       <!-- LEFT: INPUT -->
       <div class="left">
-        <iframe id="inputFrame" src="input_v3.html" scrolling="yes"></iframe>
+        <iframe id="inputFrame" src="./input_v3.html" scrolling="yes"></iframe>
       </div>
 
       <!-- RIGHT: MATRIX -->
       <div class="right">
         <div class="panel">
-          <iframe id="matrixFrame" src="matrix_v1.html" scrolling="yes"></iframe>
+          <iframe id="matrixFrame" src="./matrix_v1.html" scrolling="yes"></iframe>
         </div>
         <div class="panel">
-          <iframe id="dataFrame" src="data_v1.html" scrolling="yes"></iframe>
+          <iframe id="dataFrame" src="./data_v1.html" scrolling="yes"></iframe>
         </div>
       </div>
 
@@ -146,7 +146,7 @@
   <script>
 
     function sendInputsToMatrix() {
-      const inputFrame = document.querySelector('iframe[src="input_v3.html"]');
+      const inputFrame = document.querySelector('iframe[src="./input_v3.html"]');
       const matrixFrame = document.getElementById("matrixFrame");
       const dataFrame = document.getElementById("dataFrame");
 
@@ -346,4 +346,5 @@
 </body>
 
 </html>
+
 
